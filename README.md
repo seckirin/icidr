@@ -13,6 +13,8 @@ $ gcidr -h
 
 # Example
 
+## General
+
 ```bash
 $ gcidr -l ips.txt -j -sa -o ccidr.json
 $ cat ccidr.json
@@ -52,4 +54,10 @@ $ cat ccidr.txt
   CIDR: 183.56.172.0/24, Count: 2, IPs: [x.x.x.x y.y.y.y]
   ...
   CIDR: 27.22.58.0/24, Count: 8, IPs: [x.x.x.x y.y.y.y z.z.z.z ...]
+```
+
+## STDIN
+
+```bash
+cat ips.txt | gcidr -sa -j -o ccidr.json
 ```

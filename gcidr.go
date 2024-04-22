@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io"
 	"net"
 	"os"
 	"sort"
@@ -19,7 +20,7 @@ type Subnet struct {
 func main() {
 	flags := flag.NewFlagSet(os.Args[0], flag.ExitOnError)
 
-	listPtr := flags.String("l", "", "The path to the IP list file (required)")
+	listPtr := flags.String("l", "", "The path to the IP list file")
 	jsonPtr := flags.Bool("j", false, "Output the result as JSON")
 	sortAscPtr := flags.Bool("sa", false, "Sort the result in ascending order by count")
 	sortDescPtr := flags.Bool("sd", false, "Sort the result in descending order by count")
@@ -32,21 +33,22 @@ func main() {
 
 	flags.Parse(os.Args[1:])
 
-	if *listPtr == "" {
-		flags.Usage()
-		return
+	var input io.Reader
+	if *listPtr != "" {
+		file, err := os.Open(*listPtr)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		defer file.Close()
+		input = file
+	} else {
+		input = os.Stdin
 	}
-
-	file, err := os.Open(*listPtr)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	defer file.Close()
 
 	subnets := make(map[string][]string)
 
-	scanner := bufio.NewScanner(file)
+	scanner := bufio.NewScanner(input)
 	for scanner.Scan() {
 		ip := net.ParseIP(scanner.Text())
 		if ip != nil {
