@@ -5,10 +5,7 @@
 ```bash
 $ go version
   go version go1.22.2 darwin/amd64
-$ go install github.com/yuukisec/gcidr
-  ...
-$ gcidr -h
-
+$ go install github.com/yuukisec/gcidr@latest
 ```
 
 # Example
