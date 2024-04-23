@@ -60,10 +60,6 @@ func main() {
 		stat, _ := os.Stdin.Stat()
 		if (stat.Mode() & os.ModeCharDevice) != 0 {
 			flags.Usage()
-			fmt.Println("\nPlease provide the IP list file using -l option, or pipe the IP list to stdin.\n\n" +
-				"  gcidr -l ips.txt -sd-count\n" +
-				"  gcidr -l ips.txt -sa-cidr\n" +
-				"  gcidr -l ips.txt -sd-count -json\n")
 			return
 		}
 		input = os.Stdin
