@@ -118,7 +118,7 @@ func main() {
 		fmt.Println(string(data))
 	} else {
 		for _, subnet := range subnetList {
-			fmt.Printf("CIDR: %s, Count: %d, IPs: %v\n", subnet.CIDR, subnet.Count, subnet.IPs)
+			fmt.Printf("CIDR: %s\tCount: %d\tIPs: %v\n", subnet.CIDR, subnet.Count, subnet.IPs)
 		}
 	}
 }
